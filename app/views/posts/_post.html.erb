@@ -1,0 +1,13 @@
+<%= div_for post do %>
+  <h2><%= link_to post.title, post_path(post) %></h2>
+  <p><%= post.body%></p>
+    <p>
+      Comments(<%= post.comments.count %>)
+    </p>
+    <ul>
+      <% post.tags.each do |tag| %>
+        <li><%= tag.name %> </li>
+      <% end %>
+    </ul>
+
+<% end %>
