@@ -2,12 +2,11 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.where(email: params[:email]).first
-    if @user.authenticate(params[:password])
+    if @user&.confirmed? and @user&.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to root_path, success: 'You have signed in'
     else
-      flash[:error] = 'Invalid email or password'
-      render :new
+      redirect_to login_path, danger: 'Invalid email pr password'
     end
   end
 
